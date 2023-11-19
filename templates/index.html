@@ -8,9 +8,15 @@
 </head>
 <body>
     <div class="main">
-        <input type="text" name="search" id="search">
-        <button>Search</button>
-        <button>Add</button>
+        <div class="controls">
+            <input type="text" name="search" id="searchText">
+            <button id="searchBtn">Search</button>
+            <button id="addBtn">Add</button>
+        </div>
+        <div class="text">
+            <span id="results"></span>
+        </div>
     </div>
+    <script src="{{ url_for('static', path='/js/main.js') }}"></script>
 </body>
 </html>
