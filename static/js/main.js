@@ -1,4 +1,5 @@
 const searchBtn = document.getElementById('searchBtn');
+const embeddingBtn = document.getElementById('embeddingBtn');
 const addBtn = document.getElementById('addBtn');
 const searchText = document.getElementById('searchText');
 const resultsBox = document.getElementById('results');
@@ -18,14 +19,21 @@ data = {
 
 addBtn.addEventListener('click', async () => {
     data.body = JSON.stringify({text: searchText.value})
+    await fetch(`add/`, data)
+})
+
+embeddingBtn.addEventListener('click', async () => {
+    data.body = JSON.stringify({text: searchText.value})
     let res = await fetch(`embedding/`, data)
     const result = await res.json();
-    resultsBox.innerHTML = result['embedding']
+    console.log(result)
+    resultsBox.innerHTML = result
 })
 
 searchBtn.addEventListener('click', async () => {
     data.body = JSON.stringify({text: searchText.value})
-    let res = await fetch(`embedding/`, data)
+    let res = await fetch(`query/`, data)
     const result = await res.json();
-    resultsBox.innerHTML = result['embedding']
+    console.log(result)
+    resultsBox.innerHTML = `${result['distances'][0]}\n${result['documents'][0]}`
 })

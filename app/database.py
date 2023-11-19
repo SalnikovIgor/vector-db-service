@@ -8,12 +8,12 @@ class DataBase:
         chroma_client = chromadb.Client()
         self.collection = chroma_client.create_collection(**settings)
 
-    def _generate_random_hash() -> None:
+    def _generate_random_hash(self) -> None:
         return hashlib.sha256(random.getrandbits(4).to_bytes()).hexdigest()
 
     def add(self, documents: list[str], embeddings: list[float]) -> None:
         self.collection.add(
-            embeddings=embeddings,
+            embeddings=embeddings.tolist(),
             documents=documents,
             ids=[self._generate_random_hash() for _ in documents]
         )

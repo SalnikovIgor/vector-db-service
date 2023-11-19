@@ -30,3 +30,13 @@ async def root(request: Request):
 async def get_embedding(item: Item):
     embedding = model.embedding(item.text)
     return {'embedding': embedding.tolist()}
+
+@app.post("/add/")
+async def get_embedding(item: Item):
+    embedding = model.embedding(item.text)
+    db.add([item.text], embedding)
+    return {'embedding': embedding.tolist()}
+
+@app.post("/query/")
+async def get_embedding(item: Item):
+    return db.query(item.text)
